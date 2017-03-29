@@ -23,7 +23,7 @@ namespace PotapanjeBrodova
         public IEnumerable<Polje> DajSlobodnaPolja()
         {
             List<Polje> p = new List<Polje>();
-            for (int i = 0; i < redaka; ++i)
+            for (int i = 0; i < redaka; ++i)    
             {
                 for (int j = 0; j < stupaca; ++j)
                 {
@@ -44,6 +44,7 @@ namespace PotapanjeBrodova
         public IEnumerable<IEnumerable<Polje>> DajNizoveSlobodnihPolja(int duljina)
         {
             List<IEnumerable<Polje>> nizovi = new List<IEnumerable<Polje>>();
+            
         }
 
     }
