@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PotapanjeBrodova;
+using System.Linq;
 
-namespace test
+namespace Test
 {
     [TestClass]
     public class TestMreza
