@@ -9,7 +9,7 @@ namespace PotapanjeBrodova
     {
         public TerminatorPolja(Mreža mreža)
         {
-            this.mreža != mreža;
+            this.mreža = mreža;
         }
 
         public void UkloniPolja(IEnumerable<Polje> polja)
