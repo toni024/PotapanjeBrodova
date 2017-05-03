@@ -2,23 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PotapanjeBrodova
 {
-    public class Flota
+    public class Flota : IGađani
     {
-        public void DodajBrod(IEnumerable<Polje> polja)
+        public void dodajBrod(IEnumerable<Polje> polja)
         {
-            brodovi.Add(new Brod(polja));
+            brodovi.Add(new PotapanjeBrodova.Brod(polja));
         }
 
-        public int BrojBrodova
+        public RezultatGađanja Gađaj(Polje polje)
         {
-            get
+            foreach (Brod brod in brodovi)
             {
-                return brodovi.Count;
+                var rezultat = brod.Gađaj(polje);
+
+                if (rezultat != RezultatGađanja.Promašaj)
+                    return rezultat;
             }
+            return RezultatGađanja.Promašaj;
+        }
+
+        public int brojBrodova
+        {
+            get { return brodovi.Count; }
         }
 
         private List<Brod> brodovi = new List<Brod>();

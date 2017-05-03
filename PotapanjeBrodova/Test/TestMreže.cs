@@ -1,46 +1,46 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PotapanjeBrodova;
-using System.Linq;
 
 namespace Test
 {
     [TestClass]
-    public class TestMreza
+    public class TestMreža
     {
         [TestMethod]
-        public void Mreza_DajSlobodnaPoljaVracaSvaPoljaZaPocetnuMrezu()
+        public void Mreža_DajSlobodnaPoljaVračaSvaPoljaZaPočetnuMrežu()
         {
-            Mreza m = new Mreza(5, 5);
+            Mreža m = new Mreža(5, 5);
             Assert.AreEqual(25, m.DajSlobodnaPolja().Count());
-
         }
+
         [TestMethod]
-        public void Mreza_DajSlobodnaPoljaVraca24PoljaZaMrezu5x5NakonJednogUklonjenogPoljaZadanimRedkomIStupcem()
+        public void Mreža_DajSlobodnaPoljaVrača24PoljaZaMrežu5x5NakonJednogUkolnjenogPoljaZadanogRetkomIStupcem()
         {
-            Mreza m = new Mreza(5, 5);
+            Mreža m = new Mreža(5, 5);
             m.UkloniPolje(1, 1);
             Assert.AreEqual(24, m.DajSlobodnaPolja().Count());
             Assert.IsFalse(m.DajSlobodnaPolja().Contains(new Polje(1, 1)));
-
         }
+
         [TestMethod]
-        public void Mreza_DajSlobodnaPoljaVraca23PoljaZaMrezu5x5NakonDvaUklonjenaPolja()
+        public void Mreža_DajSlobodnaPoljaVrača23PoljaZaMrežu5x5NakonJednogUkolnjenogPolja()
         {
-            Mreza m = new Mreza(5, 5);
+            Mreža m = new Mreža(5, 5);
             m.UkloniPolje(1, 1);
             m.UkloniPolje(4, 4);
             Assert.AreEqual(23, m.DajSlobodnaPolja().Count());
             Assert.IsFalse(m.DajSlobodnaPolja().Contains(new Polje(1, 1)));
             Assert.IsFalse(m.DajSlobodnaPolja().Contains(new Polje(4, 4)));
         }
-        [TestMethod]
-        public void Mreza_UkloniPoljeBacaIznimkuZaNepostojeciRedak()
-        {
 
+        [TestMethod]
+        public void Mreža_UkloniPoljeBacaIznimkuZaNepostoječiRedak()
+        {
             try
             {
-                Mreza m = new Mreza(5, 5);
+                Mreža m = new Mreža(5, 5);
                 m.UkloniPolje(6, 1);
                 Assert.Fail();
             }
@@ -52,15 +52,23 @@ namespace Test
             {
                 Assert.Fail();
             }
-
         }
-        [TestMethod]
-        public void Mreza_UkloniPoljeBacaIznimkuZaNepostojeciStupac()
-        {
 
+        [TestMethod]
+        public void Mreža_DajSlobodnaPoljaVrača24PoljaZaMrežu5x5NakonJednogUkolnjenogPolja()
+        {
+            Mreža m = new Mreža(5, 5);
+            m.UkloniPolje(new Polje(1, 1));
+            Assert.AreEqual(24, m.DajSlobodnaPolja().Count());
+            Assert.IsFalse(m.DajSlobodnaPolja().Contains(new Polje(1, 1)));
+        }
+
+        [TestMethod]
+        public void Mreža_UkloniPoljeBacaIznimkuZaNepostoječiStupac()
+        {
             try
             {
-                Mreza m = new Mreza(5, 5);
+                Mreža m = new Mreža(5, 5);
                 m.UkloniPolje(1, 6);
                 Assert.Fail();
             }
@@ -72,44 +80,34 @@ namespace Test
             {
                 Assert.Fail();
             }
-
         }
-        [TestMethod]
-        public void Mreza_DajSlobodnaPoljaVraca24PoljaZaMrezu5x5NakonJednogUklonjenogPolja()
-        {
-            Mreza m = new Mreza(5, 5);
-            m.UkloniPolje(new Polje(1, 1));
-            Assert.AreEqual(24, m.DajSlobodnaPolja().Count());
-            Assert.IsFalse(m.DajSlobodnaPolja().Contains(new Polje(1, 1)));
 
+        [TestMethod]
+        public void MrežaDajNizovePoljaVrača3NizaPoljaZaBrodDuljine3UHorizontalnomRetkuDuljine5()
+        {
+            Mreža m = new Mreža(1, 5);
+            Assert.Equals(3, m.DajNizoveSlobodnihPolja(3).Count());
         }
-        [TestMethod]
-        public void Mreza_DajNizovrPoljaVraca3UHorizontalnomRetkuDuljine5()
-        {
-            Mreza m = new Mreza(1, 5);
-            Assert.AreEqual(3, m.DajNizoveSlobodnihPolja(3).Count());
 
+        [TestMethod]
+        public void MrežaDajNizovePoljaVračaVračaPrazanNizZaBrodDuljine5UHorizontalnomRetkuDuljine4()
+        {
+            Mreža m = new Mreža(1, 4);
+            Assert.Equals(0, m.DajNizoveSlobodnihPolja(5).Count());
         }
-        [TestMethod]
-        public void Mreza_DajNizovrPoljaVracaPrazanNizZaBrodDuljine5UHorizontalnomRetkuDuljine4()
-        {
-            Mreza m = new Mreza(1, 4);
-            Assert.AreEqual(0, m.DajNizoveSlobodnihPolja(5).Count());
 
+        [TestMethod]
+        public void MrežaDajNizovePoljaVrača3NizaPoljaZaBrodDuljine3UVertikalnomStupcuDuljine5()
+        {
+            Mreža m = new Mreža(5, 1);
+            Assert.Equals(3, m.DajNizoveSlobodnihPolja(3).Count());
         }
-        [TestMethod]
-        public void Mreza_DajNizovrPoljaVraca3UVertikalnomStupcuDuljine5()
-        {
-            Mreza m = new Mreza(5, 1);
-            Assert.AreEqual(3, m.DajNizoveSlobodnihPolja(3).Count());
 
-        }
         [TestMethod]
-        public void Mreza_DajNizovrPoljaVracaPrazanNizZaBrodDuljine5UVertikalnomStupcuDuljine4()
+        public void MrežaDajNizovePoljaVračaVračaPrazanNizZaBrodDuljine5UVertikalnomStupcuDuljine4()
         {
-            Mreza m = new Mreza(4, 1);
-            Assert.AreEqual(0, m.DajNizoveSlobodnihPolja(5).Count());
-
+            Mreža m = new Mreža(4, 1);
+            Assert.Equals(0, m.DajNizoveSlobodnihPolja(5).Count());
         }
 
     }

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace PotapanjeBrodova
 {
@@ -20,7 +19,7 @@ namespace PotapanjeBrodova
                 Dequeue();
         }
 
-        private int maksimalnaDuljina;
 
+        private int maksimalnaDuljina;
     }
 }

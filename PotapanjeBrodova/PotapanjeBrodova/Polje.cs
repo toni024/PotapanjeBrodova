@@ -20,5 +20,20 @@ namespace PotapanjeBrodova
         {
             return Redak == other.Redak && Stupac == other.Stupac;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null)
+                return false;
+            if (obj.GetType() != GetType())
+                return false;
+
+            return Equals((Polje)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Redak ^ Stupac << 16;
+        }
     }
 }
