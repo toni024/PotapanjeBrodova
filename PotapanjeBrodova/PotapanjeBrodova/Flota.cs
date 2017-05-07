@@ -28,6 +28,11 @@ namespace PotapanjeBrodova
             get { return brodovi.Count; }
         }
 
+        public IEnumerable<Brod> Brodovi
+        {
+            get { return brodovi; }
+        }
+
         private List<Brod> brodovi = new List<Brod>();
     }
 }
