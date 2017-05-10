@@ -7,6 +7,13 @@ namespace PotapanjeBrodova
 {
     public class KružniPucač : IPucač
     {
+        public KružniPucač(Mreža mreža, Polje pogođeno, int duljinaBroda)
+        {
+            this.mreža = mreža;
+            this.prvoPogođenoPolje = pogođeno;
+            this.duljinaBroda = duljinaBroda;
+        }
+
         public Polje Gađaj()
         {
             throw new NotImplementedException();
@@ -25,5 +32,8 @@ namespace PotapanjeBrodova
             }
         }
 
+        private Mreža mreža;
+        private Polje prvoPogođenoPolje;
+        private int duljinaBroda;
     }
 }
