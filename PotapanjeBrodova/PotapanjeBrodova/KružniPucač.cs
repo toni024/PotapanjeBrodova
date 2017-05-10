@@ -16,5 +16,14 @@ namespace PotapanjeBrodova
         {
             throw new NotImplementedException();
         }
+
+        public IEnumerable<Polje> PogođenaPolja
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
     }
 }
