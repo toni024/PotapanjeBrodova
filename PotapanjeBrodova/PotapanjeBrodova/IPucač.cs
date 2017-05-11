@@ -9,5 +9,6 @@ namespace PotapanjeBrodova
     {
         Polje Gađaj();
         void ObradiGađanje(RezultatGađanja rezultat);
+        IEnumerable<Polje> PogođenaPolja { get; }
     }
 }
