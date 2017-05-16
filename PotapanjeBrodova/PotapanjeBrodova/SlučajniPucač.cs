@@ -24,20 +24,6 @@ namespace PotapanjeBrodova
 
         public void ObradiGađanje(RezultatGađanja rezultat)
         {
-            switch (rezultat)
-            {
-                case RezultatGađanja.Promašaj:
-                    return;
-                case RezultatGađanja.Pogodak:
-                    mreža.UkloniPolje(gađanoPolje);
-                    return;
-                case RezultatGađanja.Potopljen:
-                    Debug.Assert(false, "Za sada nisu predviđeni brodovi duljine 1 pa SlučajniPucač ne bi smio potopiti brod.");
-                    break;
-                default:
-                    Debug.Assert(false, $"Neočekivana vrijednost: {rezultat}.");
-                    break;
-            }
         }
 
         public IEnumerable<Polje> PogođenaPolja
