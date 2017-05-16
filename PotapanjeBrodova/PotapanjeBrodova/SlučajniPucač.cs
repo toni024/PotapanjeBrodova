@@ -24,13 +24,30 @@ namespace PotapanjeBrodova
 
         public void ObradiGađanje(RezultatGađanja rezultat)
         {
+            switch (rezultat)
+            {
+                case RezultatGađanja.Promašaj:
+                    return;
+                case RezultatGađanja.Pogodak:
+                    pogođenaPolja.Add(gađanoPolje);
+                    mreža.UkloniPolje(gađanoPolje);
+                    return;
+                case RezultatGađanja.Potopljen:
+                    pogođenaPolja.Add(gađanoPolje);
+                    TerminatorPolja terminator = new TerminatorPolja(mreža);
+                    terminator.UkloniPolja(pogođenaPolja);
+                    return;
+                default:
+                    Debug.Assert(false);
+                    break;
+            }
         }
 
         public IEnumerable<Polje> PogođenaPolja
         {
             get
             {
-                return new Polje[] { gađanoPolje };
+                return pogođenaPolja.Sortiraj();
             }
         }
 
@@ -42,6 +59,7 @@ namespace PotapanjeBrodova
         private Mreža mreža;
         private int duljinaBroda;
         private Polje gađanoPolje;
+        private List<Polje> pogođenaPolja = new List<Polje>();
         private Random izbornik = new Random();
     }
 }
