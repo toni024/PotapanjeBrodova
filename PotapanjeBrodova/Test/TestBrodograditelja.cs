@@ -13,9 +13,10 @@ namespace Test
         public void Brodograditelj_SložiFlotuVraćaFlotuSBrodovimaZadaneDuljine()
         {
             Brodograditelj brodograditelj = new Brodograditelj();
-            Mreža mreža = new Mreža(10, 10);
+            int brojRedaka = 10;
+            int brojStupaca = 10;
             IEnumerable<int> duljineBrodova = new int[] { 5, 4, 4, 3, 3, 3, 2, 2, 2, 2 };
-            Flota f = brodograditelj.SložiFlotu(mreža, duljineBrodova);
+            Flota f = brodograditelj.SložiFlotu(brojRedaka, brojStupaca, duljineBrodova);
             Assert.AreEqual(duljineBrodova.Count(), f.BrojBrodova);
             Assert.AreEqual(1, f.Brodovi.Count(brod => brod.Polja.Count() == 5));
             Assert.AreEqual(2, f.Brodovi.Count(brod => brod.Polja.Count() == 4));
