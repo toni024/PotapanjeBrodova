@@ -18,19 +18,19 @@ namespace PotapanjeBrodova
         public Polje Gađaj()
         {
             List<Polje> kandidati = DajKandidate();
-            return kandidati[izbornik.Next(kandidati.Count)];
+            gađanoPolje = kandidati[izbornik.Next(kandidati.Count)];
+            return gađanoPolje;
         }
 
         public void ObradiGađanje(RezultatGađanja rezultat)
         {
-            throw new NotImplementedException();
         }
 
         public IEnumerable<Polje> PogođenaPolja
         {
             get
             {
-                throw new NotImplementedException();
+                return (new Polje[] { prvoPogođenoPolje, gađanoPolje }).Sortiraj();
             }
         }
 
@@ -49,6 +49,7 @@ namespace PotapanjeBrodova
 
         private Mreža mreža;
         private Polje prvoPogođenoPolje;
+        private Polje gađanoPolje;
         private int duljinaBroda;
         private Random izbornik = new Random();
     }
