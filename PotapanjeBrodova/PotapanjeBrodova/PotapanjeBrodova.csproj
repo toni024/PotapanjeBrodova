@@ -50,6 +50,7 @@
     <Compile Include="Polje.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proširenja.cs" />
+    <Compile Include="Pucač.cs" />
     <Compile Include="RedFiksneDuljine.cs" />
     <Compile Include="SlučajniPucač.cs" />
     <Compile Include="TerminatorPolja.cs" />

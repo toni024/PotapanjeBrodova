@@ -6,17 +6,18 @@ using System.Text;
 
 namespace PotapanjeBrodova
 {
-    public class LinijskiPucač : IPucač
+    public class LinijskiPucač : Pucač, IPucač
     {
         public LinijskiPucač(Mreža mreža, IEnumerable<Polje> pogođena, int duljinaBroda)
+            : base(mreža, pogođena, duljinaBroda)
         {
-            this.mreža = mreža;
-            this.pogođenaPolja = new List<Polje>(pogođena);
-            this.duljinaBroda = duljinaBroda;
-            nizoviPoljaUNastavku = DajNizovePoljaUNastavku();
+            if (pogođena.First().Redak == pogođena.Last().Redak)
+                nizoviPoljaUNastavku = DajNizovePoljaLijevoDesno();
+            else
+                nizoviPoljaUNastavku = DajNizovePoljaGoreDolje();
         }
 
-        public Polje Gađaj()
+        public override Polje Gađaj()
         {
             // ako niz postoji samo na jednu stranu, gađamo njegovo prvo (najbliže) polje:
             if (nizoviPoljaUNastavku.Count == 1)
@@ -32,42 +33,6 @@ namespace PotapanjeBrodova
             return gađanoPolje;
         }
 
-        public void ObradiGađanje(RezultatGađanja rezultat)
-        {
-            mreža.UkloniPolje(gađanoPolje);
-            switch (rezultat)
-            {
-                case RezultatGađanja.Promašaj:
-                    return;
-                case RezultatGađanja.Pogodak:
-                    pogođenaPolja.Add(gađanoPolje);
-                    return;
-                case RezultatGađanja.Potopljen:
-                    pogođenaPolja.Add(gađanoPolje);
-                    TerminatorPolja terminator = new TerminatorPolja(mreža);
-                    terminator.UkloniPolja(pogođenaPolja);
-                    return;
-                default:
-                    Debug.Assert(false);
-                    break;
-            }
-        }
-
-        public IEnumerable<Polje> PogođenaPolja
-        {
-            get
-            {
-                return pogođenaPolja.Sortiraj();
-            }
-        }
-
-        private List<IEnumerable<Polje>> DajNizovePoljaUNastavku()
-        {
-            if (pogođenaPolja.First().Redak == pogođenaPolja.Last().Redak)
-                return DajNizovePoljaLijevoDesno();
-            return DajNizovePoljaGoreDolje();
-        }
-
         private List<IEnumerable<Polje>> DajNizovePoljaLijevoDesno()
         {
             return DajNizovePoljaUNastavku(Smjer.Lijevo, Smjer.Desno);
@@ -81,22 +46,17 @@ namespace PotapanjeBrodova
         private List<IEnumerable<Polje>> DajNizovePoljaUNastavku(Smjer odPrvogPolja, Smjer odZadnjegPolja)
         {
             List<IEnumerable<Polje>> nizovi = new List<IEnumerable<Polje>>();
-            Polje prvoPolje = pogođenaPolja.First();
+            Polje prvoPolje = PogođenaPolja.First();
             var nizDoPrvogPolja = mreža.DajNizSlobodnihPolja(prvoPolje, odPrvogPolja);
             if (nizDoPrvogPolja.Count() > 0)
                 nizovi.Add(nizDoPrvogPolja);
-            Polje zadnjePolje = pogođenaPolja.Last();
+            Polje zadnjePolje = PogođenaPolja.Last();
             var nizDoZadnjegPolja = mreža.DajNizSlobodnihPolja(zadnjePolje, odZadnjegPolja);
             if (nizDoZadnjegPolja.Count() > 0)
                 nizovi.Add(nizDoZadnjegPolja);
             return nizovi;
         }
 
-        private Mreža mreža;
-        private List<Polje> pogođenaPolja;
-        private Polje gađanoPolje;
-        private int duljinaBroda;
-        List<IEnumerable<Polje>> nizoviPoljaUNastavku;
-        private Random izbornik = new Random();
+        private List<IEnumerable<Polje>> nizoviPoljaUNastavku;
     }
 }
