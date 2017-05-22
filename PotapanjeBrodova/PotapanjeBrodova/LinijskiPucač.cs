@@ -13,13 +13,19 @@ namespace PotapanjeBrodova
             this.mreža = mreža;
             this.pogođenaPolja = new List<Polje>(pogođena);
             this.duljinaBroda = duljinaBroda;
+            nizoviPoljaUNastavku = DajNizovePoljaUNastavku();
         }
 
         public Polje Gađaj()
         {
-            var kandidati = DajKandidate();
-            int indeks = izbornik.Next(kandidati.Count);
-            gađanoPolje = kandidati[indeks];
+            // ako niz postoji samo na jednu stranu, gađamo njegovo prvo (najbliže) polje:
+            if (nizoviPoljaUNastavku.Count == 1)
+                return nizoviPoljaUNastavku[0].First();
+            // inače, slučajnim odabirom:
+            int indeks = izbornik.Next(2);
+            gađanoPolje = nizoviPoljaUNastavku[indeks].First();
+            // budući da tu stranu gađamo, maknut ćemo je iz liste za ubuduće:
+            nizoviPoljaUNastavku.RemoveAt(indeks);
             return gađanoPolje;
         }
 
@@ -52,45 +58,42 @@ namespace PotapanjeBrodova
             }
         }
 
-        private List<Polje> DajKandidate()
+        private List<IEnumerable<Polje>> DajNizovePoljaUNastavku()
         {
             if (pogođenaPolja.First().Redak == pogođenaPolja.Last().Redak)
-                return DajHorizontalnaPolja();
-            return DajVertikalnaPolja();
+                return DajNizovePoljaLijevoDesno();
+            return DajNizovePoljaGoreDolje();
         }
 
-        List<Polje> DajHorizontalnaPolja()
+        private List<IEnumerable<Polje>> DajNizovePoljaLijevoDesno()
         {
-            List<Polje> polja = new List<Polje>();
-            Polje prvo = pogođenaPolja.First();
-            Polje zadnje = pogođenaPolja.Last();
-            var lijevaPolja = mreža.DajNizSlobodnihPolja(prvo, Smjer.Lijevo);
-            if (lijevaPolja.Count() > 0)
-                polja.Add(lijevaPolja.First());
-            var desnaPolja = mreža.DajNizSlobodnihPolja(zadnje, Smjer.Desno);
-            if (desnaPolja.Count() > 0)
-                polja.Add(desnaPolja.First());
-            return polja;
+            return DajNizovePoljaUNastavku(Smjer.Lijevo, Smjer.Desno);
         }
 
-        List<Polje> DajVertikalnaPolja()
+        private List<IEnumerable<Polje>> DajNizovePoljaGoreDolje()
         {
-            List<Polje> polja = new List<Polje>();
-            Polje prvo = pogođenaPolja.First();
-            Polje zadnje = pogođenaPolja.Last();
-            var lijevaPolja = mreža.DajNizSlobodnihPolja(prvo, Smjer.Gore);
-            if (lijevaPolja.Count() > 0)
-                polja.Add(lijevaPolja.First());
-            var desnaPolja = mreža.DajNizSlobodnihPolja(zadnje, Smjer.Dolje);
-            if (desnaPolja.Count() > 0)
-                polja.Add(desnaPolja.First());
-            return polja;
+            return DajNizovePoljaUNastavku(Smjer.Gore, Smjer.Dolje);
+        }
+
+        private List<IEnumerable<Polje>> DajNizovePoljaUNastavku(Smjer odPrvogPolja, Smjer odZadnjegPolja)
+        {
+            List<IEnumerable<Polje>> nizovi = new List<IEnumerable<Polje>>();
+            Polje prvoPolje = pogođenaPolja.First();
+            var nizDoPrvogPolja = mreža.DajNizSlobodnihPolja(prvoPolje, odPrvogPolja);
+            if (nizDoPrvogPolja.Count() > 0)
+                nizovi.Add(nizDoPrvogPolja);
+            Polje zadnjePolje = pogođenaPolja.Last();
+            var nizDoZadnjegPolja = mreža.DajNizSlobodnihPolja(zadnjePolje, odZadnjegPolja);
+            if (nizDoZadnjegPolja.Count() > 0)
+                nizovi.Add(nizDoZadnjegPolja);
+            return nizovi;
         }
 
         private Mreža mreža;
         private List<Polje> pogođenaPolja;
         private Polje gađanoPolje;
         private int duljinaBroda;
+        List<IEnumerable<Polje>> nizoviPoljaUNastavku;
         private Random izbornik = new Random();
     }
 }
