@@ -57,7 +57,7 @@ namespace Test
             m.UkloniPolje(4, 3);
             LinijskiPucač puc = new LinijskiPucač(m, polja, 3);
             Polje p = puc.Gađaj();
-            Assert.Equals(new Polje(1, 3), p);
+            Assert.AreEqual(new Polje(1, 3), p);
         }
 
         [TestMethod]
@@ -68,7 +68,7 @@ namespace Test
             m.UkloniPolje(1, 3);
             LinijskiPucač puc = new LinijskiPucač(m, polja, 3);
             Polje p = puc.Gađaj();
-            Assert.Equals(new Polje(4, 3), p);
+            Assert.AreEqual(new Polje(4, 3), p);
         }
     }
 }
