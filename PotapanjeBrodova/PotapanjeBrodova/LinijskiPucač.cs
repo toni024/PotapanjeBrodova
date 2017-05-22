@@ -76,6 +76,14 @@ namespace PotapanjeBrodova
         List<Polje> DajVertikalnaPolja()
         {
             List<Polje> polja = new List<Polje>();
+            Polje prvo = pogođenaPolja.First();
+            Polje zadnje = pogođenaPolja.Last();
+            var lijevaPolja = mreža.DajNizSlobodnihPolja(prvo, Smjer.Gore);
+            if (lijevaPolja.Count() > 0)
+                polja.Add(lijevaPolja.First());
+            var desnaPolja = mreža.DajNizSlobodnihPolja(zadnje, Smjer.Dolje);
+            if (desnaPolja.Count() > 0)
+                polja.Add(desnaPolja.First());
             return polja;
         }
 
