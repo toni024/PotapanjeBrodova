@@ -20,12 +20,15 @@ namespace PotapanjeBrodova
         {
             // ako niz postoji samo na jednu stranu, gađamo njegovo prvo (najbliže) polje:
             if (nizoviPoljaUNastavku.Count == 1)
-                return nizoviPoljaUNastavku[0].First();
+                gađanoPolje = nizoviPoljaUNastavku[0].First();
             // inače, slučajnim odabirom:
-            int indeks = izbornik.Next(2);
-            gađanoPolje = nizoviPoljaUNastavku[indeks].First();
-            // budući da tu stranu gađamo, maknut ćemo je iz liste za ubuduće:
-            nizoviPoljaUNastavku.RemoveAt(indeks);
+            else
+            {
+                int indeks = izbornik.Next(2);
+                gađanoPolje = nizoviPoljaUNastavku[indeks].First();
+                // budući da tu stranu gađamo, maknut ćemo je iz liste za ubuduće:
+                nizoviPoljaUNastavku.RemoveAt(indeks);
+            }
             return gađanoPolje;
         }
 
@@ -54,7 +57,7 @@ namespace PotapanjeBrodova
         {
             get
             {
-                return pogođenaPolja;
+                return pogođenaPolja.Sortiraj();
             }
         }
 
