@@ -23,10 +23,17 @@ namespace PotapanjeBrodova
             pucač = new SlučajniPucač(mreža, duljineBrodova.First());
         }
 
+        public Polje Gađaj()
+        {
+            return pucač.Gađaj();
+        }
+
         public void ObradiGađanje(RezultatGađanja rezultat)
         {
             if (rezultat == RezultatGađanja.Promašaj)
                 return;
+
+            pucač.ObradiGađanje(rezultat);
             if (rezultat == RezultatGađanja.Pogodak)
             {
                 switch (TaktikaGađanja)
