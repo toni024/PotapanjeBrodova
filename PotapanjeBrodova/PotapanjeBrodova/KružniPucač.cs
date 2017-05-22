@@ -11,27 +11,32 @@ namespace PotapanjeBrodova
         public KružniPucač(Mreža mreža, Polje pogođeno, int duljinaBroda)
             : base(mreža, pogođeno, duljinaBroda)
         {
+            nizoviPoljaUNastavku = DajNizovePoljaUNastavcima();
         }
 
         public override Polje Gađaj()
         {
-            List<Polje> kandidati = DajKandidate();
-            gađanoPolje = kandidati[izbornik.Next(kandidati.Count)];
+            int indeks = izbornik.Next(nizoviPoljaUNastavku.Count);
+            gađanoPolje = nizoviPoljaUNastavku[indeks].First();
+            // uklanjamo odabrani smjer za eventualno sljedeće gađanje
+            nizoviPoljaUNastavku.RemoveAt(indeks);
             return gađanoPolje;
         }
 
-        private List<Polje> DajKandidate()
+        private List<IEnumerable<Polje>> DajNizovePoljaUNastavcima()
         {
             Debug.Assert(PogođenaPolja.Count() == 1);
-            List<Polje> kandidati = new List<Polje>();
+            List<IEnumerable<Polje>> kandidati = new List<IEnumerable<Polje>>();
             foreach (Smjer smjer in Enum.GetValues(typeof(Smjer)))
             {
                 var niz = mreža.DajNizSlobodnihPolja(PogođenaPolja.ElementAt(0), smjer);
                 if (niz.Count() > 0)
-                    kandidati.Add(niz.ElementAt(0));
+                    kandidati.Add(niz);
             }
             Debug.Assert(kandidati.Count() > 0);
             return kandidati;
         }
+
+        private List<IEnumerable<Polje>> nizoviPoljaUNastavku;
     }
 }
