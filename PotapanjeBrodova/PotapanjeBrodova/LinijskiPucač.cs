@@ -11,6 +11,7 @@ namespace PotapanjeBrodova
         public LinijskiPucač(Mreža mreža, IEnumerable<Polje> pogođena, int duljinaBroda)
             : base(mreža, pogođena, duljinaBroda)
         {
+            Debug.Assert(pogođena.Count() == 2);
             if (pogođena.First().Redak == pogođena.Last().Redak)
                 nizoviPoljaUNastavku = DajNizovePoljaLijevoDesno();
             else
