@@ -30,29 +30,42 @@ namespace PotapanjeBrodova
 
         public void ObradiGađanje(RezultatGađanja rezultat)
         {
-            if (rezultat == RezultatGađanja.Promašaj)
-                return;
-
-            pucač.ObradiGađanje(rezultat);
-            if (rezultat == RezultatGađanja.Pogodak)
+            switch (rezultat)
             {
-                switch (TaktikaGađanja)
-                {
-                    case TaktikaGađanja.Nasumično:
-                        PromijeniTaktikuUKružno();
-                        return;
-                    case TaktikaGađanja.Kružno:
-                        PromijeniTaktikuULinijsko();
-                        return;
-                    case TaktikaGađanja.Linijsko:
-                        return;
-                    default:
-                        Debug.Assert(false);
-                        break;
-                }
+                case RezultatGađanja.Promašaj:
+                    return;
+                case RezultatGađanja.Pogodak:
+                    pucač.ObradiGađanje(rezultat);
+                    PromijeniTaktikuNakonPogotka();
+                    return;
+                case RezultatGađanja.Potopljen:
+                    pucač.ObradiGađanje(rezultat);
+                    // potopljeni brod uklanjamo iz liste brodova koje gađamo
+                    duljineBrodova.Remove(pucač.PogođenaPolja.Count());
+                    PromijeniTaktikuUNasumično();
+                    return;
+                default:
+                    Debug.Assert(false);
+                    break;
             }
-            Debug.Assert(rezultat == RezultatGađanja.Potopljen);
-            PromijeniTaktikuUNasumično();
+        }
+
+        private void PromijeniTaktikuNakonPogotka()
+        {
+            switch (TaktikaGađanja)
+            {
+                case TaktikaGađanja.Nasumično:
+                    PromijeniTaktikuUKružno();
+                    return;
+                case TaktikaGađanja.Kružno:
+                    PromijeniTaktikuULinijsko();
+                    return;
+                case TaktikaGađanja.Linijsko:
+                    return;
+                default:
+                    Debug.Assert(false);
+                    break;
+            }
         }
 
         private void PromijeniTaktikuUKružno()
