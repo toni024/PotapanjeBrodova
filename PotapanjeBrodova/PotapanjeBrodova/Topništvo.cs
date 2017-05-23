@@ -30,16 +30,15 @@ namespace PotapanjeBrodova
 
         public void ObradiGađanje(RezultatGađanja rezultat)
         {
+            pucač.ObradiGađanje(rezultat);
             switch (rezultat)
             {
                 case RezultatGađanja.Promašaj:
                     return;
                 case RezultatGađanja.Pogodak:
-                    pucač.ObradiGađanje(rezultat);
                     PromijeniTaktikuNakonPogotka();
                     return;
                 case RezultatGađanja.Potopljen:
-                    pucač.ObradiGađanje(rezultat);
                     // potopljeni brod uklanjamo iz liste brodova koje gađamo
                     duljineBrodova.Remove(pucač.PogođenaPolja.Count());
                     PromijeniTaktikuUNasumično();
