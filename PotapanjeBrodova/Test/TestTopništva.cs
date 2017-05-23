@@ -24,6 +24,7 @@ namespace Test
             int stupaca = 5;
             int[] duljineBrodova = new int[] { 3, 2, 1 };
             Topništvo t = new Topništvo(redaka, stupaca, duljineBrodova);
+            t.Gađaj();
             t.ObradiGađanje(RezultatGađanja.Promašaj);
             Assert.AreEqual(TaktikaGađanja.Nasumično, t.TaktikaGađanja);
         }
