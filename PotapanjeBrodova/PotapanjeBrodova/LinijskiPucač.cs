@@ -12,26 +12,28 @@ namespace PotapanjeBrodova
             : base(mreža, pogođena, duljinaBroda)
         {
             Debug.Assert(pogođena.Count() == 2);
-            if (pogođena.First().Redak == pogođena.Last().Redak)
-                nizoviPoljaUNastavku = DajNizovePoljaLijevoDesno();
-            else
-                nizoviPoljaUNastavku = DajNizovePoljaGoreDolje();
         }
 
         public override Polje Gađaj()
         {
+            List<IEnumerable<Polje>> nizoviPolja = DajNizovePoljaUNastavku();
             // ako niz postoji samo na jednu stranu, gađamo njegovo prvo (najbliže) polje:
-            if (nizoviPoljaUNastavku.Count == 1)
-                gađanoPolje = nizoviPoljaUNastavku[0].First();
+            if (nizoviPolja.Count == 1)
+                gađanoPolje = nizoviPolja[0].First();
             // inače, slučajnim odabirom:
             else
             {
                 int indeks = izbornik.Next(2);
-                gađanoPolje = nizoviPoljaUNastavku[indeks].First();
-                // budući da tu stranu gađamo, maknut ćemo je iz liste za ubuduće:
-                nizoviPoljaUNastavku.RemoveAt(indeks);
+                gađanoPolje = nizoviPolja[indeks].First();
             }
             return gađanoPolje;
+        }
+
+        private List<IEnumerable<Polje>> DajNizovePoljaUNastavku()
+        {
+            if (PogođenaPolja.First().Redak == PogođenaPolja.Last().Redak)
+                return DajNizovePoljaLijevoDesno();
+            return DajNizovePoljaGoreDolje();
         }
 
         private List<IEnumerable<Polje>> DajNizovePoljaLijevoDesno()
@@ -57,7 +59,5 @@ namespace PotapanjeBrodova
                 nizovi.Add(nizDoZadnjegPolja);
             return nizovi;
         }
-
-        private List<IEnumerable<Polje>> nizoviPoljaUNastavku;
     }
 }
