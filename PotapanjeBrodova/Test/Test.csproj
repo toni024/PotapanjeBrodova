@@ -68,6 +68,7 @@
     <Compile Include="TestTerminatoraPolja.cs" />
     <Compile Include="TestTopništva.cs" />
     <Compile Include="TestIzlučivanjaNajčešćih.cs" />
+    <Compile Include="TestSelektivnogSlučajnogPucača.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PotapanjeBrodova\PotapanjeBrodova.csproj">

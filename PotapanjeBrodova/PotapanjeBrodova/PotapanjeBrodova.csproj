@@ -52,6 +52,7 @@
     <Compile Include="Proširenja.cs" />
     <Compile Include="Pucač.cs" />
     <Compile Include="RedFiksneDuljine.cs" />
+    <Compile Include="SelektivniSlučajniPucač.cs" />
     <Compile Include="SlučajniPucač.cs" />
     <Compile Include="TerminatorPolja.cs" />
     <Compile Include="Topništvo.cs" />

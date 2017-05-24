@@ -21,7 +21,7 @@ namespace PotapanjeBrodova
             return gađanoPolje;
         }
 
-        private List<Polje> DajKandidate()
+        protected virtual List<Polje> DajKandidate()
         {
             return mreža.DajNizoveSlobodnihPolja(duljinaBroda).SelectMany(niz => niz).ToList();
         }
