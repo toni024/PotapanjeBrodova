@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PotapanjeBrodova;
 
@@ -8,7 +8,7 @@ namespace Test
     public class TestRedaFiksneDuljine
     {
         [TestMethod]
-        public void RedFiksneDuljine_DodavanjeJednogÈlanaPoveæavaDuljinuReda()
+        public void RedFiksneDuljine_DodavanjeJednogÄŒlanaPoveÄ‡avaDuljinuReda()
         {
             RedFiksneDuljine<Polje> r = new RedFiksneDuljine<Polje>(3);
             Assert.AreEqual(0, r.Count);
@@ -17,7 +17,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void RedFiksneDuljine_DodavanjeÈetvrtogÈlanaNePoveæavaRedDuljine3()
+        public void RedFiksneDuljine_DodavanjeÄŒetvrtogÄŒlanaNePoveÄ‡avaRedDuljine3()
         {
             RedFiksneDuljine<Polje> r = new RedFiksneDuljine<Polje>(3);
             r.Enqueue(new Polje(0, 0));
@@ -29,7 +29,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void RedFiksneDuljine_DodavanjeÈetvrtogÈlanaIzbacujePrviÈlanIzRedaDuljine3()
+        public void RedFiksneDuljine_DodavanjeÄŒetvrtogÄŒlanaIzbacujePrviÄŒlanIzRedaDuljine3()
         {
             RedFiksneDuljine<Polje> r = new RedFiksneDuljine<Polje>(3);
             r.Enqueue(new Polje(0, 0));
@@ -41,7 +41,7 @@ namespace Test
         }
 
         [TestMethod]
-        public void RedFiksneDuljine_BrisanjeUklanjaSveÈlanoveIzReda()
+        public void RedFiksneDuljine_BrisanjeUklanjaSveÄŒlanoveIzReda()
         {
             RedFiksneDuljine<Polje> r = new RedFiksneDuljine<Polje>(3);
             r.Enqueue(new Polje(0, 0));

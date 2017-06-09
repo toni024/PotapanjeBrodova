@@ -7,9 +7,9 @@ namespace PotapanjeBrodova
 {
     public class Flota : IGađani
     {
-        public void dodajBrod(IEnumerable<Polje> polja)
+        public void DodajBrod(IEnumerable<Polje> polja)
         {
-            brodovi.Add(new PotapanjeBrodova.Brod(polja));
+            brodovi.Add(new Brod(polja));
         }
 
         public RezultatGađanja Gađaj(Polje polje)
@@ -17,16 +17,20 @@ namespace PotapanjeBrodova
             foreach (Brod brod in brodovi)
             {
                 var rezultat = brod.Gađaj(polje);
-
                 if (rezultat != RezultatGađanja.Promašaj)
                     return rezultat;
             }
             return RezultatGađanja.Promašaj;
         }
 
-        public int brojBrodova
+        public int BrojBrodova
         {
             get { return brodovi.Count; }
+        }
+
+        public IEnumerable<Brod> Brodovi
+        {
+            get { return brodovi; }
         }
 
         private List<Brod> brodovi = new List<Brod>();

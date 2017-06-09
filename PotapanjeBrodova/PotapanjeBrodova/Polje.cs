@@ -27,13 +27,12 @@ namespace PotapanjeBrodova
                 return false;
             if (obj.GetType() != GetType())
                 return false;
-
             return Equals((Polje)obj);
         }
 
         public override int GetHashCode()
         {
-            return Redak ^ Stupac << 16;
+            return Redak ^ Stupac >> 16;
         }
     }
 }

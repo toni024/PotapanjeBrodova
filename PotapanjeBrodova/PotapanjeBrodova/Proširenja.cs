@@ -18,5 +18,16 @@ namespace PotapanjeBrodova
                 throw new ArgumentException();
             return polja.OrderBy(p => p.Redak + p.Stupac);
         }
-    }
+
+		public static IEnumerable<T> IzlučiNajčešće<T>(this IEnumerable<IEnumerable<T>> nizovi)
+		{
+			var jedinstveniNiz = nizovi.SelectMany(niz => niz);
+			var grupiraniElementi = jedinstveniNiz.GroupBy(element => element);
+			var grupeSKljučem = grupiraniElementi.Select(grupa => new { grupa.Key, Count = grupa.Count() });
+			var sortiraneGrupe = grupeSKljučem.OrderByDescending(element => element.Count);
+			int najčešće = sortiraneGrupe.First().Count;
+			var najčešćiParovi = sortiraneGrupe.TakeWhile(elementi => elementi.Count == najčešće);
+			return najčešćiParovi.Select(par => par.Key);
+		}
+	}
 }
